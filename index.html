@@ -31,11 +31,12 @@
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="https://kit.fontawesome.com/yourcode.js"></script>
-
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="jquery.drawsvg.js"></script>
 </head>
 
 <body>
-  <h1>Hubworks Updates</h1>
+  <h1 style="padding: 10px; text-align: center;">Hubworks Updates</h1>
   <!-- VIDEO HEADER -->
   <div class="header-container">
     <div class="video-container">
@@ -82,69 +83,23 @@
   <!-- VIDEO HEADER END -->
 
   <!-- ANIMATION -->
+  <!-- ANIMATION -->
   <div class="card">
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="team-member" data-aos="fade-left">
-        <div class="row">
-          <video preload="true" autoplay="autoplay" muted poster="assets/video/zipschedules-scheduleconflictstatic.png"
-            class="teamVideo">
-            <source src="assets/video/zipschedules-scheduleconflict.mp4" type="video/mp4">
-            <!-- <source src="assets/video/trimJIB.WebM" type="video/webm"> -->
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-    <!-- ANIMATION -->
-    <div class="card">
     <div class="row">
       <div class="col-sm-4">
         <div class="team-member" data-aos="fade-left">
+          <div class="wrapper">
+            <object class="animation" type="image/svg+xml" data="./assets/img/avoidscheduleconflict.svg"
+              style="height: 150px;" loop></object>
+          </div>
           <div class="row">
-            <video preload="true" autoplay="autoplay" muted poster="assets/video/zipschedules-scheduleconflictstatic.png"
-              class="teamVideo">
-              <source src="assets/video/zipschedules-scheduleconflict.mp4" type="video/mp4">
-              <!-- <source src="assets/video/trimJIB.WebM" type="video/webm"> -->
-            </video>
+            <p>AVOID SCHEDULE CONFLICTS</p>
           </div>
         </div>
       </div>
     </div>
-</div>
-      <!-- ANIMATION -->
-      <div class="card">
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="team-member" data-aos="fade-left">
-        <div class="row">
-          <video preload="true" autoplay="autoplay" muted poster="assets/video/zipschedules-scheduleconflictstatic.png"
-            class="teamVideo">
-            <source src="assets/video/zipschedules-scheduleconflict.mp4" type="video/mp4">
-            <!-- <source src="assets/video/trimJIB.WebM" type="video/webm"> -->
-          </video>
-        </div>
-      </div>
-    </div>
   </div>
-</div>
-    <!-- ANIMATION -->
-    <div class="card">
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="team-member" data-aos="fade-left">
-          <div class="row">
-            <video preload="true" autoplay="autoplay" muted poster="assets/video/zipschedules-scheduleconflictstatic.png"
-              class="teamVideo">
-              <source src="assets/video/zipschedules-scheduleconflict.mp4" type="video/mp4">
-              <!-- <source src="assets/video/trimJIB.WebM" type="video/webm"> -->
-            </video>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
+  </div>
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -157,8 +112,65 @@
     });
 
   </script>
+  <script type="text/javascript">
+    var $doc = $(document),
+      $win = $(window),
+      $svg = $('.animation').drawsvg(),
+      max = $doc.height() - $win.height();
+
+    $win.on('scroll', function () {
+      var p = $win.scrollTop() / max;
+      $svg.drawsvg('progress', p);
+    });
+  </script>
   <script>
-    $('video').each(function () {
+    $('.animation').onScreen({
+      container: window,
+      direction: 'vertical',
+      toggleClass: 'onScreen',
+    });
+  </script>
+  <script>
+    // Get the H1 heading
+/*!
+ * Determine if an element is in the viewport
+ * (c) 2017 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * @param  {Node}    elem The element
+ * @return {Boolean}      Returns true if element is in the viewport
+ */
+ var isInViewport = function (elem) {
+	var distance = elem.getBoundingClientRect();
+	return (
+		distance.top >= 0 &&
+		distance.left >= 0 &&
+		distance.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+		distance.right <= (window.innerWidth || document.documentElement.clientWidth)
+	);
+};
+
+var animation = document.querySelector('.animation');
+
+window.addEventListener('scroll', function (event) {
+	if (isInViewport(animation)) {
+		console.log('In viewport!');
+	} else {
+    console.log('Nope...');
+  }
+}, false);
+  </script>
+  <script>
+    $('object').hover(function() {
+      
+      this.style.webkitAnimationPlayState = "running";
+    
+      $(this).on('webkitAnimationEnd', function() {
+        this.style.webkitAnimationPlayState = "paused";
+      });
+            
+    });
+  </script>
+  <script>
+    $('object').each(function () {
       if ($(this).is(":in-viewport")) {
         $(this)[0].play();
       } else {
