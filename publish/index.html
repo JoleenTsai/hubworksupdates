@@ -84,9 +84,9 @@
   <!-- ANIMATION -->
   <div class="row">
     <div class="col-sm-4">
-      <div class="team-member" data-aos="fade-up">
+      <div class="team-member" data-aos="fade-up" data-aos-easing="ease-in-out" visibility="hidden" class="animated">
         <div class="row">
-          <video preload="true" autoplay="autoplay" loop="headerVideo" muted poster="assets/video/zipschedules-scheduleconflictstatic.png"
+          <video preload="true" autoplay="autoplay" muted poster="assets/video/zipschedules-scheduleconflictstatic.png"
             class="teamVideo">
             <source src="assets/video/zipschedules-scheduleconflict.mp4" type="video/mp4">
             <!-- <source src="assets/video/trimJIB.WebM" type="video/webm"> -->
@@ -105,7 +105,8 @@
     AOS.init({
       offset: 200,
       duration: 2000,
-      once: false
+      once: false,
+      debounceDelay: 50
     });
 
   </script>

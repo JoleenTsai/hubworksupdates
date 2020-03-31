@@ -154,6 +154,9 @@ video {
   color: #bb0000;
   text-decoration: none; }
 
+.animated {
+  visibility: visible; }
+
 /* For mobile phones: */
 [class*="col-"] {
   width: 100%; }
