@@ -31,11 +31,12 @@
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="https://kit.fontawesome.com/yourcode.js"></script>
-
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="jquery.drawsvg.js"></script>
 </head>
 
 <body>
-  <h1>Hubworks Updates</h1>
+  <h1 style="padding: 10px; text-align: center;">Hubworks Updates</h1>
   <!-- VIDEO HEADER -->
   <div class="header-container">
     <div class="video-container">
@@ -49,14 +50,14 @@
         <div class="col-lg-3 col-md-4 menu">
           <div class="card text-center bg-danger">
             <div class="card-body">
-              <a href="#events" class="videoLinks">EVENTS</a>
+              <a href="svg.html" class="videoLinks">SVG</a>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-4 menu">
           <div class="card text-center bg-danger">
             <div class="card-body">
-              <a href="#stats" class="videoLinks">ABOUT</a>
+              <a href="videos.html" class="videoLinks">VIDEOS</a>
             </div>
           </div>
         </div>
@@ -82,16 +83,16 @@
   <!-- VIDEO HEADER END -->
 
   <!-- ANIMATION -->
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="team-member" data-aos="fade-up" data-aos-easing="ease-in-out" visibility="hidden" class="animated">
-        <div class="row">
-          <video preload="true" autoplay="autoplay" muted poster="assets/video/zipschedules-scheduleconflictstatic.png"
-            class="teamVideo">
-            <source src="assets/video/zipschedules-scheduleconflict.mp4" type="video/mp4">
-            <!-- <source src="assets/video/trimJIB.WebM" type="video/webm"> -->
-          </video>
-          <!-- <img class="teamVideoStatic" src="assets/video/zipschedules-scheduleconflictstatic.png" alt=""> -->
+  <!-- ANIMATION -->
+  <div class="card animation" style="padding: 50px; margin: auto;">
+    <div class="row">
+      <div class="col-sm-4">
+        <div data-aos="fade-left">
+            <object class="animation" id="animation1" type="image/svg+xml" data="./assets/img/avoidscheduleconflict2.svg"
+              style="height: 150px; animation-play-state: paused;"></object>
+          <div class="row">
+            <p style="text-align: center;">AVOID SCHEDULE CONFLICTS</p>
+          </div>
         </div>
       </div>
     </div>
@@ -105,10 +106,68 @@
     AOS.init({
       offset: 200,
       duration: 2000,
-      once: false,
       debounceDelay: 50
     });
 
+  </script>
+  <script>
+    $('.animation').onScreen({
+      container: window,
+      direction: 'vertical',
+      toggleClass: 'onScreen',
+      animationPlayState: 'running'
+    });
+  </script>
+<script>
+  function startAnimation() {
+    document.getElementById('#animation1').style.webkitAnimationPlayState = 'running';
+  } // Close the dropdown if the user clicks outside of it
+  
+  
+  window.onanimationend = function (event) {
+    if (!event.target.matches('#animation1') && !event.target.contains('menu-icon-bar')) {
+      document.getElementById('nav-collapse').classList.remove('open');
+      document.getElementById('nav-trigger').classList.remove('close');
+    }
+  };
+  </script>
+  <script>
+// Determine if an element is in the viewport
+// @return {Boolean}      Returns true if element is in the viewport
+ var isInViewport = function (elem) {
+	var distance = elem.getBoundingClientRect();
+	return (
+		distance.top >= 0 &&
+		distance.left >= 0 &&
+		distance.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+		distance.right <= (window.innerWidth || document.documentElement.clientWidth)
+	);
+};
+
+var animation = document.querySelector('.animation');
+
+window.addEventListener('scroll', function (event) {
+	if (isInViewport(animation)) {
+    console.log('In viewport!');
+    document.getElementById('#animation1').style.webkitAnimationPlayState('running');
+    // Close the dropdown if the user clicks outside of it
+  
+	} else {
+    console.log('Nope...');
+    // document.getElementById('animation1').AnimationPlayState.pause();
+  }
+}, false);
+  </script>
+  <script>
+    $('.animation').each(function () {
+      if ($(this).is(":in-viewport")) {
+        console.log('jQuery In viewport!');
+        $(this)[0].webkitAnimationPlayState.running();
+      } else {
+        console.log('jQuery nah');
+        $(this)[0].webkitAnimationPlayState.pause();
+      }
+    })
   </script>
 </body>
 
