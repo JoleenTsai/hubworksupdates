@@ -50,14 +50,14 @@
         <div class="col-lg-3 col-md-4 menu">
           <div class="card text-center bg-danger">
             <div class="card-body">
-              <a href="#events" class="videoLinks">EVENTS</a>
+              <a href="svg.html" class="videoLinks">SVG</a>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-4 menu">
           <div class="card text-center bg-danger">
             <div class="card-body">
-              <a href="#stats" class="videoLinks">ABOUT</a>
+              <a href="videos.html" class="videoLinks">VIDEOS</a>
             </div>
           </div>
         </div>
@@ -84,22 +84,20 @@
 
   <!-- ANIMATION -->
   <!-- ANIMATION -->
-  <div class="card">
+  <div class="card animation" style="padding: 50px; margin: auto;">
     <div class="row">
       <div class="col-sm-4">
-        <div class="team-member" data-aos="fade-left">
-          <div class="wrapper">
-            <object class="animation" type="image/svg+xml" data="./assets/img/avoidscheduleconflict.svg"
-              style="height: 150px;" loop></object>
-          </div>
+        <div data-aos="fade-left">
+            <object class="animation" id="animation1" type="image/svg+xml" data="./assets/img/avoidscheduleconflict2.svg"
+              style="height: 150px; animation-play-state: paused;"></object>
           <div class="row">
-            <p>AVOID SCHEDULE CONFLICTS</p>
+            <p style="text-align: center;">AVOID SCHEDULE CONFLICTS</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
+
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -112,32 +110,30 @@
     });
 
   </script>
-  <script type="text/javascript">
-    var $doc = $(document),
-      $win = $(window),
-      $svg = $('.animation').drawsvg(),
-      max = $doc.height() - $win.height();
-
-    $win.on('scroll', function () {
-      var p = $win.scrollTop() / max;
-      $svg.drawsvg('progress', p);
-    });
-  </script>
   <script>
     $('.animation').onScreen({
       container: window,
       direction: 'vertical',
       toggleClass: 'onScreen',
+      animationPlayState: 'running'
     });
   </script>
+<script>
+  function startAnimation() {
+    document.getElementById('#animation1').style.webkitAnimationPlayState = 'running';
+  } // Close the dropdown if the user clicks outside of it
+  
+  
+  window.onanimationend = function (event) {
+    if (!event.target.matches('#animation1') && !event.target.contains('menu-icon-bar')) {
+      document.getElementById('nav-collapse').classList.remove('open');
+      document.getElementById('nav-trigger').classList.remove('close');
+    }
+  };
+  </script>
   <script>
-    // Get the H1 heading
-/*!
- * Determine if an element is in the viewport
- * (c) 2017 Chris Ferdinandi, MIT License, https://gomakethings.com
- * @param  {Node}    elem The element
- * @return {Boolean}      Returns true if element is in the viewport
- */
+// Determine if an element is in the viewport
+// @return {Boolean}      Returns true if element is in the viewport
  var isInViewport = function (elem) {
 	var distance = elem.getBoundingClientRect();
 	return (
@@ -152,29 +148,24 @@ var animation = document.querySelector('.animation');
 
 window.addEventListener('scroll', function (event) {
 	if (isInViewport(animation)) {
-		console.log('In viewport!');
+    console.log('In viewport!');
+    document.getElementById('#animation1').style.webkitAnimationPlayState('running');
+    // Close the dropdown if the user clicks outside of it
+  
 	} else {
     console.log('Nope...');
+    // document.getElementById('animation1').AnimationPlayState.pause();
   }
 }, false);
   </script>
   <script>
-    $('object').hover(function() {
-      
-      this.style.webkitAnimationPlayState = "running";
-    
-      $(this).on('webkitAnimationEnd', function() {
-        this.style.webkitAnimationPlayState = "paused";
-      });
-            
-    });
-  </script>
-  <script>
-    $('object').each(function () {
+    $('.animation').each(function () {
       if ($(this).is(":in-viewport")) {
-        $(this)[0].play();
+        console.log('jQuery In viewport!');
+        $(this)[0].webkitAnimationPlayState.running();
       } else {
-        $(this)[0].pause();
+        console.log('jQuery nah');
+        $(this)[0].webkitAnimationPlayState.pause();
       }
     })
   </script>
